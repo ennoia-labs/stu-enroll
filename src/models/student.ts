@@ -30,7 +30,7 @@ const studentSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     DOB: { type: Date, required: true },
-    faculty: { type: faculty, required: true },
+    faculty: { type: String, required: true },
     semester: { type: Number, required: true },
   },
   {
