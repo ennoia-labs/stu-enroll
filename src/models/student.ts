@@ -11,9 +11,17 @@ export interface StudentInput {
   name: string;
   email: string;
   password: string;
-  DOB: Date;
+  dateOfBirth: Date;
+  mobileNo: number;
   faculty: faculty;
   semester: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  postalCode: number;
+  guardianName: string;
+  guardianContact: number;
   createdAt: Date; // timestamp
   updatedAt: Date; // timestamp
   comparePassword(candidatePassword: string): Promise<Boolean>; // ref:https://youtu.be/BWUi6BS9T5Y?t=2033
@@ -26,12 +34,63 @@ export interface StudentDocument extends StudentInput, mongoose.Document {
 
 const studentSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    DOB: { type: Date, required: true },
-    faculty: { type: String, required: true },
-    semester: { type: Number, required: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    dateOfBirth: {
+      type: Date,
+      required: true,
+    },
+    mobileNo: {
+      type: Number,
+      required: true,
+    },
+    faculty: {
+      type: String,
+      required: true,
+    },
+    semester: {
+      type: Number,
+      required: true,
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    state: {
+      type: String,
+      required: true,
+    },
+    postalCode: {
+      type: Number,
+      required: true,
+    },
+    guardianName: {
+      type: String,
+      required: true,
+    },
+    guardianContact: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,
