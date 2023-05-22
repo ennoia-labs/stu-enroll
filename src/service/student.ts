@@ -11,3 +11,12 @@ export async function createStudent(
     throw new Error(e);
   }
 }
+export async function getAllStudents() {
+  try {
+    const students = await StudentModel.find().select('-password');
+
+    return students;
+  } catch (e: any) {
+    throw new Error(e);
+  }
+}
