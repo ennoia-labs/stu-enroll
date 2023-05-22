@@ -1,24 +1,34 @@
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
-enum faculty {
+export enum faculty {
   BIM = 'Bachelor of Information Management',
   BCA = 'Bachelor of Computer Application',
   BSC_CSIT = 'Bachelor of Science in Computer Science and Information Technology',
 }
 
+export enum NepalStates {
+  'One' = 'Koshi',
+  'Two' = 'Madhesh',
+  'Three' = 'Bagmati',
+  'Four' = 'Gandaki',
+  'Five' = 'Lumbini',
+  'Six' = 'Karnali',
+  'Seven' = 'Sudur Paschim',
+}
+
 export interface StudentInput {
-  name: string;
   email: string;
   password: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   mobileNo: number;
   faculty: faculty;
-  semester: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  semester: number;
   firstName: string;
   lastName: string;
   address: string;
   city: string;
+  state: NepalStates;
   postalCode: number;
   guardianName: string;
   guardianContact: number;
@@ -44,7 +54,7 @@ const studentSchema = new mongoose.Schema(
       required: true,
     },
     dateOfBirth: {
-      type: Date,
+      type: String,
       required: true,
     },
     mobileNo: {
