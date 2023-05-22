@@ -11,11 +11,22 @@ export async function createStudent(
     throw new Error(e);
   }
 }
+
 export async function getAllStudents() {
   try {
     const students = await StudentModel.find().select('-password');
 
     return students;
+  } catch (e: any) {
+    throw new Error(e);
+  }
+}
+
+export async function getStudent(id: string) {
+  try {
+    const student = await StudentModel.findById(id).select('-password');
+
+    return student;
   } catch (e: any) {
     throw new Error(e);
   }

@@ -2,7 +2,7 @@ import logger from '../utils/logger';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { CreateStudentInput } from '../schema/student';
-import { createStudent, getAllStudents } from '../service/student';
+import { createStudent, getAllStudents, getStudent } from '../service/student';
 
 export async function createStudentHandler(
   req: Request<{}, {}, CreateStudentInput['body']>,
@@ -21,6 +21,26 @@ export async function getStudentsHandler(req: Request, res: Response) {
   try {
     const students = await getAllStudents();
     return res.status(StatusCodes.OK).json({ students });
+  } catch (e: any) {
+    logger.error(e);
+    return res.status(StatusCodes.CONFLICT).send(e.message);
+  }
+}
+
+export async function getStudentHandler(req: Request, res: Response) {
+  try {
+    const { params } = req;
+    if (params === undefined) {
+      return res.status(StatusCodes.BAD_REQUEST);
+    }
+
+    const { id } = params;
+    if (id === undefined) {
+      return res.status(StatusCodes.BAD_REQUEST);
+    }
+
+    const student = await getStudent(id);
+    return res.status(StatusCodes.OK).json({ student });
   } catch (e: any) {
     logger.error(e);
     return res.status(StatusCodes.CONFLICT).send(e.message);

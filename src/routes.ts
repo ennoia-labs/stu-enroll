@@ -2,7 +2,11 @@ import { Express, Request, Response } from 'express';
 import { createStudentSchema } from './schema/student';
 import { validate } from './middleware/validateResource';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
-import { createStudentHandler, getStudentsHandler } from './controller/student';
+import {
+  createStudentHandler,
+  getStudentHandler,
+  getStudentsHandler,
+} from './controller/student';
 
 export default function routes(app: Express) {
   app.get('/health', (req: Request, res: Response) => {
@@ -11,4 +15,5 @@ export default function routes(app: Express) {
 
   app.post('/student', validate(createStudentSchema), createStudentHandler);
   app.get('/students', getStudentsHandler);
+  app.get('/students/:id', getStudentHandler);
 }
