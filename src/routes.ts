@@ -6,6 +6,7 @@ import {
   createStudentHandler,
   getStudentHandler,
   getStudentsHandler,
+  updateStudentHandler,
 } from './controller/student';
 
 export default function routes(app: Express) {
@@ -16,4 +17,5 @@ export default function routes(app: Express) {
   app.post('/student', validate(createStudentSchema), createStudentHandler);
   app.get('/students', getStudentsHandler);
   app.get('/students/:id', getStudentHandler);
+  app.patch('/students/:id', updateStudentHandler);
 }

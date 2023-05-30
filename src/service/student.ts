@@ -31,3 +31,15 @@ export async function getStudent(id: string) {
     throw new Error(e);
   }
 }
+
+export async function updateStudent(id: string, data: object) {
+  try {
+    const student = await StudentModel.findByIdAndUpdate(id, data, {
+      new: true,
+    }).select('-password');
+
+    return student;
+  } catch (e: any) {
+    throw new Error(e);
+  }
+}
