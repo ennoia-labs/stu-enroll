@@ -12,9 +12,19 @@ export async function createStudent(
   }
 }
 
-export async function getAllStudents() {
+export interface queryString {
+  limit: string;
+}
+
+export async function getAllStudents({ limit }: queryString) {
   try {
-    const students = await StudentModel.find().select('-password');
+    let studentsQuery = StudentModel.find().select('-password');
+
+    if (limit && Number.isInteger(parseInt(limit))) {
+      studentsQuery = studentsQuery.limit(parseInt(limit));
+    }
+
+    const students = await studentsQuery.exec();
 
     return students;
   } catch (e: any) {

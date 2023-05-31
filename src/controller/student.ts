@@ -6,6 +6,7 @@ import {
   createStudent,
   getAllStudents,
   getStudent,
+  queryString,
   updateStudent,
 } from '../service/student';
 
@@ -22,9 +23,14 @@ export async function createStudentHandler(
   }
 }
 
-export async function getStudentsHandler(req: Request, res: Response) {
+export async function getStudentsHandler(
+  req: Request<{}, {}, {}, queryString>,
+  res: Response
+) {
   try {
-    const students = await getAllStudents();
+    const { limit } = req.query;
+    const students = await getAllStudents({ limit });
+
     return res.status(StatusCodes.OK).json({ students });
   } catch (e: any) {
     logger.error(e);
