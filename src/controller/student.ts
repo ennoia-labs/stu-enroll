@@ -16,7 +16,7 @@ export async function createStudentHandler(
 ) {
   try {
     const { _id } = await createStudent(req.body);
-    return res.status(StatusCodes.OK).json({ _id }); // TODO: change status to CREATED
+    return res.status(StatusCodes.CREATED).json({ _id });
   } catch (e: any) {
     logger.error(e);
     return res.status(StatusCodes.CONFLICT).send(e.message);
