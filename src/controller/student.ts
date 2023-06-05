@@ -54,7 +54,7 @@ export async function getStudentHandler(req: Request, res: Response) {
     return res.status(StatusCodes.OK).json({ student });
   } catch (e: any) {
     logger.error(e);
-    return res.status(StatusCodes.CONFLICT).send(e.message);
+    return res.status(StatusCodes.NOT_FOUND).send(e.message);
   }
 }
 
