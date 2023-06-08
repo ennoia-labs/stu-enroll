@@ -6,7 +6,6 @@ dotenv.config();
 
 async function connect() {
   const DB_URI = process.env.DB_URI as string;
-  // const DB_URI: string = process.env.DB_URI_MOCK as string;
 
   try {
     await mongoose.connect(DB_URI);
