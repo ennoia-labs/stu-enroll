@@ -9,7 +9,8 @@
     "noEmitOnError": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "outDir": "build"
+    "outDir": "build",
+    "esModuleInterop": true // ts-jest warning
   },
   "include": ["src/**/*", "config"]
 }
