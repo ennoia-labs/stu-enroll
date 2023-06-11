@@ -37,3 +37,22 @@ export const INVALID_DATA_VALUE: DynamicStringObject = {
   guardianName: 'The field "guardian name" is required.',
   guardianContact: 'The "mobile number" field must be at least of 10 length.',
 };
+export interface Student {
+  _id: string;
+  email: string;
+  dateOfBirth: string;
+  mobileNo: number;
+  faculty: string;
+  semester: number;
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: number;
+  guardianName: string;
+  guardianContact: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
