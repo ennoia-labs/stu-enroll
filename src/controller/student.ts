@@ -44,12 +44,12 @@ export async function getStudentHandler(req: Request, res: Response) {
   try {
     const { params } = req;
     if (params === undefined) {
-      return res.status(StatusCodes.BAD_REQUEST);
+      return res.status(StatusCodes.BAD_REQUEST).end();
     }
 
     const { id } = params;
-    if (id === undefined) {
-      return res.status(StatusCodes.BAD_REQUEST);
+    if (!id.match(OBJECT_ID_REGEX)) {
+      return res.status(StatusCodes.BAD_REQUEST).end();
     }
 
     const student = await getStudent(id);
@@ -69,12 +69,12 @@ export async function updateStudentHandler(req: Request, res: Response) {
   try {
     const { params } = req;
     if (params === undefined) {
-      return res.status(StatusCodes.BAD_REQUEST);
+      return res.status(StatusCodes.BAD_REQUEST).end();
     }
 
     const { id } = params;
-    if (id === undefined) {
-      return res.status(StatusCodes.BAD_REQUEST);
+    if (!id.match(OBJECT_ID_REGEX)) {
+      return res.status(StatusCodes.BAD_REQUEST).end();
     }
 
     const { body: data } = req;
