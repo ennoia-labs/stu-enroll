@@ -3,10 +3,11 @@ import mongoose from 'mongoose';
 import supertest from 'supertest';
 import createServer from '../utils/server';
 import { faculty } from '../models/student';
+import { getRandomObjectID } from '../utils';
+import { Student } from '../constants/tests';
 import { OBJECT_ID_REGEX } from '../constants';
 import { NepalStates } from '../models/student';
 import { StudentInput } from '../models/student';
-import { Student } from '../constants/tests';
 
 const app = createServer();
 dotenv.config();
@@ -62,9 +63,18 @@ describe('Student', () => {
   });
 
   describe('Get student', () => {
+    describe('given the "id" is invalid', () => {
+      it('should return 400', async () => {
+        const STUDENT_ID: string = 'INVALID';
+        const res = await supertest(app).get(`/students/${STUDENT_ID}`);
+
+        expect(res.statusCode).toBe(400);
+      });
+    });
+
     describe("given the student doesn't exist", () => {
       it('should return 404', async () => {
-        const STUDENT_ID: string = new mongoose.Types.ObjectId().toString();
+        const STUDENT_ID: string = getRandomObjectID();
         const res = await supertest(app).get(`/students/${STUDENT_ID}`);
 
         expect(res.statusCode).toBe(404);
