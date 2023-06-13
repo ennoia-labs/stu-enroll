@@ -110,6 +110,63 @@ describe('Student', () => {
       });
     });
   });
+
+  describe('Update Student', () => {
+    describe('given the "id" is invalid', () => {
+      it('should return 400', async () => {
+        const STUDENT_ID: string = 'INVALID';
+        const res = await supertest(app).patch(`/students/${STUDENT_ID}`);
+
+        expect(res.statusCode).toBe(400);
+      });
+    });
+
+    describe("given the student doesn't exist", () => {
+      it('should return 404', async () => {
+        const STUDENT_ID: string = getRandomObjectID();
+        const res = await supertest(app).patch(`/students/${STUDENT_ID}`);
+
+        expect(res.statusCode).toBe(404);
+      });
+    });
+
+    describe('given the student exists', () => {
+      it('should return status 200 and updated student doc.', async () => {
+        const STUDENT_ID: string = newStudent;
+        const dataToUpdate = {
+          email: 'updated@email.com',
+          semester: 3,
+        };
+        const res = await supertest(app)
+          .patch(`/students/${STUDENT_ID}`)
+          .send(dataToUpdate);
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toHaveProperty('updatedStudent');
+        expect(res.body.updatedStudent).toMatchObject<Student>({
+          _id: expect.any(String),
+          email: expect.any(String),
+          dateOfBirth: expect.any(String),
+          mobileNo: expect.any(Number),
+          faculty: expect.any(String),
+          semester: expect.any(Number),
+          firstName: expect.any(String),
+          lastName: expect.any(String),
+          address: expect.any(String),
+          city: expect.any(String),
+          state: expect.any(String),
+          postalCode: expect.any(Number),
+          guardianName: expect.any(String),
+          guardianContact: expect.any(Number),
+          createdAt: expect.any(String),
+          updatedAt: expect.any(String),
+          __v: expect.any(Number),
+        });
+        expect(res.body.updatedStudent.email).toBe(dataToUpdate.email);
+        expect(res.body.updatedStudent.semester).toBe(dataToUpdate.semester);
+      });
+    });
+  });
 });
 
 afterAll(async () => {
