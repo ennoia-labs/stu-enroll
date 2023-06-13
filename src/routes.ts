@@ -4,6 +4,7 @@ import { validate } from './middleware/validateResource';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 import {
   createStudentHandler,
+  deleteStudentHandler,
   getStudentHandler,
   getStudentsHandler,
   updateStudentHandler,
@@ -18,4 +19,5 @@ export default function routes(app: Express) {
   app.get('/students', getStudentsHandler);
   app.get('/students/:id', getStudentHandler);
   app.patch('/students/:id', updateStudentHandler);
+  app.delete('/students/:id', deleteStudentHandler);
 }

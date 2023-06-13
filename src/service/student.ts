@@ -53,3 +53,11 @@ export async function updateStudent(id: string, data: object) {
     throw new Error(e);
   }
 }
+
+export async function deleteStudent(id: string) {
+  try {
+    await StudentModel.findByIdAndDelete(id);
+  } catch (e: any) {
+    throw new Error(e);
+  }
+}

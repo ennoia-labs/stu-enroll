@@ -4,11 +4,13 @@ import { StatusCodes } from 'http-status-codes';
 import { CreateStudentInput } from '../schema/student';
 import {
   createStudent,
+  deleteStudent,
   getAllStudents,
   getStudent,
   queryString,
   updateStudent,
 } from '../service/student';
+import { OBJECT_ID_REGEX } from '../constants';
 
 export async function createStudentHandler(
   req: Request<{}, {}, CreateStudentInput['body']>,
@@ -79,6 +81,26 @@ export async function updateStudentHandler(req: Request, res: Response) {
 
     const updatedStudent = await updateStudent(id, data);
     return res.status(StatusCodes.OK).json({ updatedStudent });
+  } catch (e: any) {
+    logger.error(e);
+    return res.status(StatusCodes.BAD_REQUEST).send(e.message);
+  }
+}
+
+export async function deleteStudentHandler(req: Request, res: Response) {
+  try {
+    const { params } = req;
+    if (params === undefined) {
+      return res.status(StatusCodes.BAD_REQUEST).end();
+    }
+
+    const { id } = params;
+    if (!id.match(OBJECT_ID_REGEX)) {
+      return res.status(StatusCodes.BAD_REQUEST).end();
+    }
+
+    await deleteStudent(id);
+    return res.status(StatusCodes.OK).end();
   } catch (e: any) {
     logger.error(e);
     return res.status(StatusCodes.BAD_REQUEST).send(e.message);
