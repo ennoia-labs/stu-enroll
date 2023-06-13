@@ -167,6 +167,36 @@ describe('Student', () => {
       });
     });
   });
+
+  describe('Delete Student', () => {
+    describe('given the "id" is invalid', () => {
+      it('should return 400', async () => {
+        const STUDENT_ID: string = 'INVALID';
+        const res = await supertest(app).delete(`/students/${STUDENT_ID}`);
+
+        expect(res.statusCode).toBe(400);
+      });
+    });
+
+    describe("given the student doesn't exist", () => {
+      it('should return 404', async () => {
+        const STUDENT_ID: string = getRandomObjectID();
+        const res = await supertest(app).delete(`/students/${STUDENT_ID}`);
+
+        expect(res.statusCode).toBe(404);
+      });
+    });
+
+    describe('given the student exists', () => {
+      it('should return status 200 and empty body', async () => {
+        const STUDENT_ID: string = newStudent;
+        const res = await supertest(app).delete(`/students/${STUDENT_ID}`);
+
+        expect(res.statusCode).toBe(200);
+        expect(JSON.stringify(res.body)).toBe('{}');
+      });
+    });
+  });
 });
 
 afterAll(async () => {
