@@ -80,6 +80,11 @@ export async function updateStudentHandler(req: Request, res: Response) {
     const { body: data } = req;
 
     const updatedStudent = await updateStudent(id, data);
+
+    if (updatedStudent === null) {
+      return res.status(StatusCodes.NOT_FOUND).end();
+    }
+
     return res.status(StatusCodes.OK).json({ updatedStudent });
   } catch (e: any) {
     logger.error(e);
@@ -99,7 +104,12 @@ export async function deleteStudentHandler(req: Request, res: Response) {
       return res.status(StatusCodes.BAD_REQUEST).end();
     }
 
-    await deleteStudent(id);
+    const deletedStudent = await deleteStudent(id);
+
+    if (deletedStudent === null) {
+      return res.status(StatusCodes.NOT_FOUND).end();
+    }
+
     return res.status(StatusCodes.OK).end();
   } catch (e: any) {
     logger.error(e);

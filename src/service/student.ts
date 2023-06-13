@@ -56,7 +56,9 @@ export async function updateStudent(id: string, data: object) {
 
 export async function deleteStudent(id: string) {
   try {
-    await StudentModel.findByIdAndDelete(id);
+    const deletedStudent = await StudentModel.findByIdAndDelete(id);
+
+    return deletedStudent;
   } catch (e: any) {
     throw new Error(e);
   }
