@@ -1,3 +1,12 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: bug
+assignees: ''
+
+---
+
 ## Issue Description
 
 [Provide a brief description of the issue here]
@@ -18,9 +27,9 @@
 
 [Describe what is currently happening]
 
-## Screenshots
+## Screenshots/Loom video
 
-[If applicable, include any relevant screenshots or error messages]
+[If applicable, include any relevant screenshots/videos or error messages]
 
 ## Environment (if applicable)
 
