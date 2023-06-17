@@ -9,6 +9,8 @@ import { OBJECT_ID_REGEX } from '../constants';
 import { NepalStates } from '../models/student';
 import { StudentInput } from '../models/student';
 
+jest.mock('pino', () => jest.fn());
+
 const app = createServer();
 dotenv.config();
 
