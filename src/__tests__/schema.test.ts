@@ -30,7 +30,7 @@ describe('Schema Validation', () => {
   });
 
   describe('given the data is empty', () => {
-    it('should throw required errors', () => {
+    it('should throw required errors for missing fields', () => {
       const studentData = {};
 
       try {
@@ -69,7 +69,7 @@ describe('Schema Validation', () => {
           const path = issue.path[1]; // Accessing the 1st index of the "path" array
           const originalMsg = INVALID_DATA_VALUE[path];
 
-          expect(originalMsg && originalMsg).toBe(issue.message);
+          expect(issue.message).toBe(originalMsg);
         });
       }
     });
