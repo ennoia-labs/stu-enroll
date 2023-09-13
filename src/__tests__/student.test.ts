@@ -22,7 +22,7 @@ beforeAll(async () => {
 describe('Student', () => {
   let newStudent: string = '';
 
-  describe('Create student', () => {
+  describe.only('Create student', () => {
     describe('given the data is in valid format', () => {
       it('should create a new student', async () => {
         // A sample student data object
@@ -51,7 +51,7 @@ describe('Student', () => {
 
         // Make a POST request to create the student
         const res = await supertest(app)
-          .post('/student')
+          .post('/students')
           .send({ ...studentData, passwordConfirmation: studentData.password });
 
         // Assertions

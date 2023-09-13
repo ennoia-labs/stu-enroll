@@ -15,7 +15,7 @@ export default function routes(app: Express) {
     res.status(StatusCodes.OK).send(ReasonPhrases.OK);
   });
 
-  app.post('/student', validate(createStudentSchema), createStudentHandler);
+  app.post('/students', validate(createStudentSchema), createStudentHandler);
   app.get('/students', getStudentsHandler);
   app.get('/students/:id', getStudentHandler);
   app.patch('/students/:id', updateStudentHandler);
