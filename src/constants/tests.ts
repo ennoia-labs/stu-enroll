@@ -3,9 +3,6 @@ export interface DynamicStringObject {
 }
 
 export const NO_DATA_ERRORS: DynamicStringObject = {
-  email: 'The field "email" is required.',
-  password: 'The field "password" is required.',
-  passwordConfirmation: 'The field "password confirmation" is required.',
   dateOfBirth: 'The field "date of birth" is required.',
   mobileNo: 'The field "mobile number" is required.',
   faculty: 'Required',
@@ -21,8 +18,6 @@ export const NO_DATA_ERRORS: DynamicStringObject = {
 };
 
 export const INVALID_DATA_VALUE: DynamicStringObject = {
-  email: 'Provided string is not a valid email',
-  password: 'String must contain at least 8 character(s)',
   mobileNo: 'The "mobile number" field must be at least of 10 length.',
   faculty:
     "Invalid enum value. Expected 'Bachelor of Information Management' | 'Bachelor of Computer Application' | 'Bachelor of Science in Computer Science and Information Technology', received 'Invalid'",
@@ -39,7 +34,6 @@ export const INVALID_DATA_VALUE: DynamicStringObject = {
 };
 export interface Student {
   _id: string;
-  email: string;
   dateOfBirth: string;
   mobileNo: number;
   faculty: string;

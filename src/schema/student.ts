@@ -1,8 +1,4 @@
-import {
-  CONTACT_NO_LENGTH,
-  MIN_PASSWORD_LENGTH,
-  POSTAL_CODE_LENGTH,
-} from '../constants';
+import { CONTACT_NO_LENGTH, POSTAL_CODE_LENGTH } from '../constants';
 import { NepalStates, faculty } from '../models/student';
 import { validationErrors } from '../constants/errorMessages';
 import { number, object, string, nativeEnum, TypeOf } from 'zod';
@@ -31,15 +27,6 @@ function numberLength({ value, length }: paramsType): boolean {
 
 export const createStudentSchema = object({
   body: object({
-    email: string({
-      required_error: validationErrors.fieldIsRequired('email'),
-    }).email(validationErrors.notValidEmail),
-    password: string({
-      required_error: validationErrors.fieldIsRequired('password'),
-    }).min(MIN_PASSWORD_LENGTH),
-    passwordConfirmation: string({
-      required_error: validationErrors.fieldIsRequired('password confirmation'),
-    }),
     dateOfBirth: string({
       required_error: validationErrors.fieldIsRequired('date of birth'),
     }).refine(ageValidation, validationErrors.DOBError),
@@ -81,13 +68,7 @@ export const createStudentSchema = object({
       (value) => numberLength({ value, length: CONTACT_NO_LENGTH }),
       validationErrors.shortLength('mobile number', CONTACT_NO_LENGTH)
     ),
-  }).refine((data) => data.password === data.passwordConfirmation, {
-    message: validationErrors.passwordsNoMatch,
-    path: ['passwordConfirmation'],
   }),
 });
 
-export type CreateStudentInput = Omit<
-  TypeOf<typeof createStudentSchema>,
-  'body.passwordConfirmation'
->;
+export type CreateStudentInput = TypeOf<typeof createStudentSchema>;

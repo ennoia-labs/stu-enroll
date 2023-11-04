@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
 export enum faculty {
@@ -18,8 +17,6 @@ export enum NepalStates {
 }
 
 export interface StudentInput {
-  email: string;
-  password: string;
   dateOfBirth: string;
   mobileNo: number;
   faculty: faculty;
@@ -34,7 +31,6 @@ export interface StudentInput {
   guardianContact: number;
   createdAt: Date; // timestamp
   updatedAt: Date; // timestamp
-  comparePassword(candidatePassword: string): Promise<Boolean>; // ref:https://youtu.be/BWUi6BS9T5Y?t=2033
 }
 
 export interface StudentDocument extends StudentInput, mongoose.Document {
@@ -44,15 +40,6 @@ export interface StudentDocument extends StudentInput, mongoose.Document {
 
 const studentSchema = new mongoose.Schema(
   {
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
     dateOfBirth: {
       type: String,
       required: true,
@@ -106,31 +93,6 @@ const studentSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-studentSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    return next();
-  }
-
-  const salt = await bcrypt.genSalt(10);
-
-  const hash = bcrypt.hashSync(this.password, salt);
-
-  this.password = hash;
-
-  return next();
-});
-
-studentSchema.methods.comparePassword = async function (
-  candidatePassword: string
-): Promise<boolean> {
-  try {
-    const result = await bcrypt.compare(candidatePassword, this.password);
-    return result;
-  } catch (e) {
-    throw e;
-  }
-};
 
 const StudentModel = mongoose.model<StudentDocument>('Student', studentSchema);
 

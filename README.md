@@ -17,7 +17,7 @@ This repository contains a microservice that handles the admission database for 
 
 - Store student information in the admission database.
 - Retrieve student information from the database.
-- Secure storage of sensitive data such as passwords.
+- Secure storage of sensitive data.
 - Timestamps for creation and last update of student documents.
 - Enumerations for faculty and Nepal states.
 
@@ -75,8 +75,6 @@ The following API endpoints are available for interacting with the admission dat
 
 ```json
 {
-  "email": "student@example.com",
-  "password": "secretpassword",
   "dateOfBirth": "1990-01-01",
   "mobileNo": 1234567890,
   "faculty": "BIM",
@@ -97,7 +95,6 @@ The following API endpoints are available for interacting with the admission dat
 ```json
 {
   "_id": "6072f01234567890abcdef12",
-  "email": "student@example.com",
   "dateOfBirth": "1990-01-01",
   "mobileNo": 1234567890,
   "faculty": "BIM",
@@ -127,7 +124,6 @@ The following API endpoints are available for interacting with the admission dat
 [
   {
     "_id": "6072f01234567890abcdef12",
-    "email": "student1@example.com",
     "dateOfBirth": "1990-01-01",
     "mobileNo": 1234567890,
     "faculty": "BIM",
@@ -145,7 +141,6 @@ The following API endpoints are available for interacting with the admission dat
   },
   {
     "_id": "6072f01234567890abcdef34",
-    "email": "student2@example.com",
     "dateOfBirth": "1991-02-03",
     "mobileNo": 9876543210,
     "faculty": "BCA",
@@ -173,7 +168,6 @@ The following API endpoints are available for interacting with the admission dat
 ```json
 {
   "_id": "6072f01234567890abcdef12",
-  "email": "student1@example.com",
   "dateOfBirth": "1990-01-01",
   "mobileNo": 1234567890,
   "faculty": "BIM",
@@ -209,7 +203,6 @@ The following API endpoints are available for interacting with the admission dat
 ```json
 {
   "_id": "6072f01234567890abcdef12",
-  "email": "student1@example.com",
   "dateOfBirth": "1990-01-01",
   "mobileNo": 1234567890,
   "faculty": "BIM",

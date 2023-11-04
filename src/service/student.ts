@@ -1,7 +1,7 @@
 import StudentModel, { StudentInput } from '../models/student';
 
 export async function createStudent(
-  input: Omit<StudentInput, 'createdAt' | 'updatedAt' | 'comparePassword'>
+  input: Omit<StudentInput, 'createdAt' | 'updatedAt'>
 ) {
   try {
     const student = await StudentModel.create(input);
@@ -18,7 +18,7 @@ export interface queryString {
 
 export async function getAllStudents({ limit }: queryString) {
   try {
-    let studentsQuery = StudentModel.find().select('-password');
+    let studentsQuery = StudentModel.find();
 
     if (limit && Number.isInteger(parseInt(limit))) {
       studentsQuery = studentsQuery.limit(parseInt(limit));
@@ -34,7 +34,7 @@ export async function getAllStudents({ limit }: queryString) {
 
 export async function getStudent(id: string) {
   try {
-    const student = await StudentModel.findById(id).select('-password');
+    const student = await StudentModel.findById(id);
 
     return student;
   } catch (e: any) {
@@ -46,7 +46,7 @@ export async function updateStudent(id: string, data: object) {
   try {
     const student = await StudentModel.findByIdAndUpdate(id, data, {
       new: true,
-    }).select('-password');
+    });
 
     return student;
   } catch (e: any) {
