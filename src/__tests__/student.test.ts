@@ -22,13 +22,11 @@ beforeAll(async () => {
 describe('Student', () => {
   let newStudent: string = '';
 
-  describe.only('Create student', () => {
+  describe('Create student', () => {
     describe('given the data is in valid format', () => {
       it('should create a new student', async () => {
         // A sample student data object
         const studentData: StudentInput = {
-          email: 'test@example.com',
-          password: 'test123456',
           dateOfBirth: '2000-01-01',
           mobileNo: 1234567890,
           faculty: faculty.BIM,
@@ -43,16 +41,10 @@ describe('Student', () => {
           guardianContact: 9876543210,
           createdAt: new Date(),
           updatedAt: new Date(),
-          comparePassword: async (candidatePassword: string) => {
-            // For testing purposes, simply returning true or false
-            return candidatePassword === studentData.password;
-          },
         };
 
         // Make a POST request to create the student
-        const res = await supertest(app)
-          .post('/students')
-          .send({ ...studentData, passwordConfirmation: studentData.password });
+        const res = await supertest(app).post('/students').send(studentData);
 
         // Assertions
         expect(res.statusCode).toBe(201);
@@ -92,7 +84,6 @@ describe('Student', () => {
         expect(res.body).toHaveProperty('student');
         expect(res.body.student).toMatchObject<Student>({
           _id: expect.any(String),
-          email: expect.any(String),
           dateOfBirth: expect.any(String),
           mobileNo: expect.any(Number),
           faculty: expect.any(String),
@@ -136,7 +127,7 @@ describe('Student', () => {
       it('should return status 200 and updated student doc.', async () => {
         const STUDENT_ID: string = newStudent;
         const dataToUpdate = {
-          email: 'updated@email.com',
+          mobileNo: 9876543310,
           semester: 3,
         };
         const res = await supertest(app)
@@ -147,7 +138,6 @@ describe('Student', () => {
         expect(res.body).toHaveProperty('updatedStudent');
         expect(res.body.updatedStudent).toMatchObject<Student>({
           _id: expect.any(String),
-          email: expect.any(String),
           dateOfBirth: expect.any(String),
           mobileNo: expect.any(Number),
           faculty: expect.any(String),
@@ -164,7 +154,7 @@ describe('Student', () => {
           updatedAt: expect.any(String),
           __v: expect.any(Number),
         });
-        expect(res.body.updatedStudent.email).toBe(dataToUpdate.email);
+        expect(res.body.updatedStudent.mobileNo).toBe(dataToUpdate.mobileNo);
         expect(res.body.updatedStudent.semester).toBe(dataToUpdate.semester);
       });
     });

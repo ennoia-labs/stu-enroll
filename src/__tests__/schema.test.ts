@@ -6,9 +6,6 @@ describe('Schema Validation', () => {
   describe('given the data is in valid format', () => {
     it('should not throw any errors', () => {
       const studentData = {
-        email: 'test@example.com',
-        password: 'test123456',
-        passwordConfirmation: 'test123456',
         dateOfBirth: '2000-01-01',
         mobileNo: 1234567890,
         faculty: faculty.BIM,
@@ -49,9 +46,6 @@ describe('Schema Validation', () => {
   describe('given the data has invalid values', () => {
     it('should throw relavent errors', () => {
       const studentData = {
-        email: 'test@example',
-        password: 'test',
-        passwordConfirmation: 'test',
         dateOfBirth: '1995-01-01',
         mobileNo: 12345678,
         faculty: 'Invalid',
