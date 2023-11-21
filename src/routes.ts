@@ -1,23 +1,12 @@
+import studentsRouter from './routes/students';
 import { Express, Request, Response } from 'express';
-import { createStudentSchema } from './schema/student';
-import { validate } from './middleware/validateResource';
+import { authenticate } from './middleware/authenticate';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
-import {
-  createStudentHandler,
-  deleteStudentHandler,
-  getStudentHandler,
-  getStudentsHandler,
-  updateStudentHandler,
-} from './controller/student';
 
 export default function routes(app: Express) {
   app.get('/health', (req: Request, res: Response) => {
     res.status(StatusCodes.OK).send(ReasonPhrases.OK);
   });
 
-  app.post('/students', validate(createStudentSchema), createStudentHandler);
-  app.get('/students', getStudentsHandler);
-  app.get('/students/:id', getStudentHandler);
-  app.patch('/students/:id', updateStudentHandler);
-  app.delete('/students/:id', deleteStudentHandler);
+  app.use('/students', authenticate, studentsRouter);
 }
